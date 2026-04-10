@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ForexPulse — Real-time financial news, economic calendar, currency heatmaps, and trading insights. Track forex markets live.">
+  <title>ForexPulse — Real-Time Financial Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- ─── Ambient Background ─────────────────────────────────── -->
+  <div class="ambient-bg">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <!-- ─── Live Ticker Bar ────────────────────────────────────── -->
+  <div class="ticker-bar" id="tickerBar">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- ─── Header ─────────────────────────────────────────────── -->
+  <header class="main-header" id="mainHeader">
+    <div class="header-left">
+      <div class="logo" id="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 2L4 9v14l12 7 12-7V9L16 2z" stroke="url(#logoGrad)" stroke-width="1.5" fill="none"/>
+            <path d="M16 2v28M4 9l12 7 12-7M4 23l12-7 12 7" stroke="url(#logoGrad)" stroke-width="1" opacity="0.5"/>
+            <circle cx="16" cy="16" r="4" fill="url(#logoGrad)" opacity="0.8"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f0ff"/>
+                <stop offset="100%" stop-color="#7b61ff"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">Forex<span class="logo-accent">Pulse</span></span>
+          <span class="logo-tagline">Real-Time Intelligence</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#dashboard" class="nav-link active" data-page="dashboard" id="navDashboard">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+        Dashboard
+      </a>
+      <a href="#news" class="nav-link" data-page="news" id="navNews">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"/></svg>
+        News
+      </a>
+      <a href="#calendar" class="nav-link" data-page="calendar" id="navCalendar">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+        Calendar
+      </a>
+      <a href="#heatmap" class="nav-link" data-page="heatmap" id="navHeatmap">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"/></svg>
+        Heatmap
+      </a>
+      <a href="#analysis" class="nav-link" data-page="analysis" id="navAnalysis">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+        Analysis
+      </a>
+      <a href="#converter" class="nav-link" data-page="converter" id="navConverter">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8zM12 15a1 1 0 100-2H6.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L6.414 15H12z"/></svg>
+        Converter
+      </a>
+    </nav>
+
+    <div class="header-right">
+      <div class="connection-status" id="connectionStatus">
+        <span class="status-dot"></span>
+        <span class="status-text">Connecting...</span>
+      </div>
+      <div class="clock" id="headerClock"></div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ───────────────────────────────────────── -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ═══ DASHBOARD PAGE ═══ -->
+    <section class="page page-dashboard active" id="pageDashboard">
+      <div class="page-header">
+        <h1>Market Dashboard</h1>
+        <p class="page-subtitle">Real-time overview of global forex markets</p>
+      </div>
+
+      <!-- Major Pairs Grid -->
+      <div class="section-header">
+        <h2>Major Currency Pairs</h2>
+        <span class="live-badge"><span class="pulse-dot"></span> LIVE</span>
+      </div>
+      <div class="pairs-grid" id="dashPairsGrid"></div>
+
+      <!-- Dashboard Columns -->
+      <div class="dashboard-grid">
+        <!-- Top News -->
+        <div class="dash-card" id="dashNewsCard">
+          <div class="card-header">
+            <h3>Latest News</h3>
+            <a href="#news" class="card-link">View All →</a>
+          </div>
+          <div class="card-body" id="dashNewsList">
+            <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div><div class="skel-line"></div></div>
+          </div>
+        </div>
+
+        <!-- Mini Calendar -->
+        <div class="dash-card" id="dashCalendarCard">
+          <div class="card-header">
+            <h3>Upcoming Events</h3>
+            <a href="#calendar" class="card-link">View All →</a>
+          </div>
+          <div class="card-body" id="dashCalendarList">
+            <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div><div class="skel-line"></div></div>
+          </div>
+        </div>
+
+        <!-- Sentiment -->
+        <div class="dash-card" id="dashSentimentCard">
+          <div class="card-header">
+            <h3>Market Sentiment</h3>
+            <a href="#analysis" class="card-link">Details →</a>
+          </div>
+          <div class="card-body" id="dashSentimentGrid">
+            <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div><div class="skel-line"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ NEWS PAGE ═══ -->
+    <section class="page page-news" id="pageNews">
+      <div class="page-header">
+        <h1>Financial News Feed</h1>
+        <p class="page-subtitle">Real-time aggregated news from major financial sources</p>
+      </div>
+
+      <div class="news-controls" id="newsControls">
+        <div class="search-box" id="newsSearchBox">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+          <input type="text" id="newsSearch" placeholder="Search news..." autocomplete="off">
+        </div>
+        <div class="filter-pills" id="newsFilters">
+          <button class="pill active" data-category="all" id="filterAll">All</button>
+          <button class="pill" data-category="forex" id="filterForex">Forex</button>
+          <button class="pill" data-category="markets" id="filterMarkets">Markets</button>
+          <button class="pill" data-category="economy" id="filterEconomy">Economy</button>
+        </div>
+      </div>
+
+      <div class="news-grid" id="newsGrid">
+        <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div><div class="skel-line"></div></div>
+      </div>
+    </section>
+
+    <!-- ═══ CALENDAR PAGE ═══ -->
+    <section class="page page-calendar" id="pageCalendar">
+      <div class="page-header">
+        <h1>Economic Calendar</h1>
+        <p class="page-subtitle">Track high-impact economic events and data releases</p>
+      </div>
+
+      <div class="calendar-controls" id="calendarControls">
+        <div class="filter-pills" id="calendarCurrencyFilters">
+          <button class="pill active" data-currency="all" id="calFilterAll">All</button>
+          <button class="pill" data-currency="USD" id="calFilterUSD">🇺🇸 USD</button>
+          <button class="pill" data-currency="EUR" id="calFilterEUR">🇪🇺 EUR</button>
+          <button class="pill" data-currency="GBP" id="calFilterGBP">🇬🇧 GBP</button>
+          <button class="pill" data-currency="JPY" id="calFilterJPY">🇯🇵 JPY</button>
+          <button class="pill" data-currency="CHF" id="calFilterCHF">🇨🇭 CHF</button>
+          <button class="pill" data-currency="CAD" id="calFilterCAD">🇨🇦 CAD</button>
+          <button class="pill" data-currency="AUD" id="calFilterAUD">🇦🇺 AUD</button>
+          <button class="pill" data-currency="NZD" id="calFilterNZD">🇳🇿 NZD</button>
+        </div>
+        <div class="filter-pills impact-filters" id="calendarImpactFilters">
+          <button class="pill active" data-impact="all" id="impactAll">All Impact</button>
+          <button class="pill impact-high" data-impact="high" id="impactHigh">🔴 High</button>
+          <button class="pill impact-medium" data-impact="medium" id="impactMedium">🟡 Medium</button>
+        </div>
+      </div>
+
+      <div class="calendar-table-wrap" id="calendarTableWrap">
+        <table class="calendar-table" id="calendarTable">
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Currency</th>
+              <th>Impact</th>
+              <th>Event</th>
+              <th>Previous</th>
+              <th>Forecast</th>
+              <th>Actual</th>
+            </tr>
+          </thead>
+          <tbody id="calendarBody">
+            <tr><td colspan="7" class="loading-cell">Loading events...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══ HEATMAP PAGE ═══ -->
+    <section class="page page-heatmap" id="pageHeatmap">
+      <div class="page-header">
+        <h1>Currency Heatmap</h1>
+        <p class="page-subtitle">Visual comparison of currency strength across all major pairs</p>
+      </div>
+
+      <div class="heatmap-container" id="heatmapContainer">
+        <div class="heatmap-grid" id="heatmapGrid"></div>
+      </div>
+
+      <div class="strength-bars" id="strengthBars">
+        <div class="section-header">
+          <h2>Currency Strength Index</h2>
+        </div>
+        <div class="strength-grid" id="strengthGrid"></div>
+      </div>
+    </section>
+
+    <!-- ═══ ANALYSIS PAGE ═══ -->
+    <section class="page page-analysis" id="pageAnalysis">
+      <div class="page-header">
+        <h1>Market Analysis</h1>
+        <p class="page-subtitle">Sentiment indicators, trend analysis, and key market levels</p>
+      </div>
+
+      <div class="analysis-grid">
+        <!-- Sentiment Gauges -->
+        <div class="analysis-card full-width" id="sentimentGauges">
+          <div class="card-header">
+            <h3>Currency Sentiment</h3>
+            <span class="card-badge">Real-Time</span>
+          </div>
+          <div class="card-body" id="sentimentGaugesGrid"></div>
+        </div>
+
+        <!-- Market Overview -->
+        <div class="analysis-card" id="marketOverview">
+          <div class="card-header">
+            <h3>Market Overview</h3>
+          </div>
+          <div class="card-body" id="marketOverviewContent">
+            <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div></div>
+          </div>
+        </div>
+
+        <!-- Key Levels -->
+        <div class="analysis-card" id="keyLevels">
+          <div class="card-header">
+            <h3>Key Levels</h3>
+          </div>
+          <div class="card-body" id="keyLevelsContent">
+            <div class="loading-skeleton"><div class="skel-line"></div><div class="skel-line short"></div></div>
+          </div>
+        </div>
+
+        <!-- Session Status -->
+        <div class="analysis-card" id="sessionStatus">
+          <div class="card-header">
+            <h3>Trading Sessions</h3>
+          </div>
+          <div class="card-body" id="sessionStatusContent"></div>
+        </div>
+
+        <!-- Volatility  -->
+        <div class="analysis-card" id="volatilityCard">
+          <div class="card-header">
+            <h3>Volatility Index</h3>
+          </div>
+          <div class="card-body" id="volatilityContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONVERTER PAGE ═══ -->
+    <section class="page page-converter" id="pageConverter">
+      <div class="page-header">
+        <h1>Currency Converter</h1>
+        <p class="page-subtitle">Convert between major currencies with live exchange rates</p>
+      </div>
+
+      <div class="converter-card">
+        <div class="converter-row">
+          <div class="converter-input-group">
+            <label for="convertFrom">From</label>
+            <div class="converter-field">
+              <select id="convertFrom" class="converter-select">
+                <option value="USD" selected>🇺🇸 USD</option>
+                <option value="EUR">🇪🇺 EUR</option>
+                <option value="GBP">🇬🇧 GBP</option>
+                <option value="JPY">🇯🇵 JPY</option>
+                <option value="CHF">🇨🇭 CHF</option>
+                <option value="CAD">🇨🇦 CAD</option>
+                <option value="AUD">🇦🇺 AUD</option>
+                <option value="NZD">🇳🇿 NZD</option>
+              </select>
+              <input type="number" id="convertAmount" class="converter-amount" value="1000" min="0" step="0.01">
+            </div>
+          </div>
+
+          <button class="converter-swap" id="convertSwap" title="Swap currencies">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+          </button>
+
+          <div class="converter-input-group">
+            <label for="convertTo">To</label>
+            <div class="converter-field">
+              <select id="convertTo" class="converter-select">
+                <option value="USD">🇺🇸 USD</option>
+                <option value="EUR" selected>🇪🇺 EUR</option>
+                <option value="GBP">🇬🇧 GBP</option>
+                <option value="JPY">🇯🇵 JPY</option>
+                <option value="CHF">🇨🇭 CHF</option>
+                <option value="CAD">🇨🇦 CAD</option>
+                <option value="AUD">🇦🇺 AUD</option>
+                <option value="NZD">🇳🇿 NZD</option>
+              </select>
+              <div class="converter-result" id="convertResult">--</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="converter-info">
+          <div class="converter-rate" id="converterRate"></div>
+          <div class="converter-timestamp" id="converterTimestamp"></div>
+        </div>
+
+        <div class="converter-quick-grid" id="converterQuickGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── Notification Toasts ─────────────────────────────── -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ─── Pair Detail Modal ──────────────────────────────── -->
+  <div class="modal-overlay" id="pairModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalPairName">EUR/USD</h3>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-rate" id="modalRate">--</div>
+        <div class="modal-sparkline">
+          <canvas id="modalSparkline" width="400" height="120"></canvas>
+        </div>
+        <div class="modal-stats" id="modalStats"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Footer ─────────────────────────────────────────────── -->
+  <footer class="main-footer">
+    <div class="footer-left">
+      <span>ForexPulse © 2026</span>
+      <span class="footer-sep">•</span>
+      <span>Real-time data from <a href="https://www.frankfurter.app" target="_blank" rel="noopener">Frankfurter</a></span>
+    </div>
+    <div class="footer-right">
+      <span id="footerLatency">Latency: --</span>
+      <span class="footer-sep">•</span>
+      <span id="footerUpdated">Last update: --</span>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
