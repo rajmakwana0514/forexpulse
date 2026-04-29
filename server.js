@@ -40,7 +40,7 @@ async function fetchLiveRates() {
     return cache.rates.data;
   }
   try {
-    const resp = await fetch(`https://api.frankfurter.dev/v1/latest?base=${BASE_CURRENCY}`);
+    const resp = await fetch(`https://api.frankfurter.app/latest?base=${BASE_CURRENCY}`);
     const json = await resp.json();
     const rates = { EUR: 1, ...json.rates };
 
@@ -81,7 +81,7 @@ async function fetchHistorical() {
   try {
     const end = new Date().toISOString().split('T')[0];
     const start = new Date(Date.now() - 30 * 86400_000).toISOString().split('T')[0];
-    const resp = await fetch(`https://api.frankfurter.app/v1/${start}..${end}?base=EUR&symbols=USD,GBP,JPY,CHF,CAD,AUD,NZD`);
+    const resp = await fetch(`https://api.frankfurter.dev/v1/${start}..${end}?base=EUR&symbols=USD,GBP,JPY,CHF,CAD,AUD,NZD`);
     const json = await resp.json();
     cache.historical.data = json;
     cache.historical.timestamp = now;
